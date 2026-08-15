@@ -9,8 +9,8 @@ const User = {
         phone,
         image,
         password,
-        cretae_at,
-        update_at
+        created_at,
+        updated_at
     )
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
