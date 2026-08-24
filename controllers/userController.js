@@ -40,15 +40,20 @@ module.exports = {
                 }
                 return res.status(201),json({
                     succes:true,
-                    message: 'creado el usuario',
+                    message: 'Usuario autenticado',
                     data: data
                 });
-            } else
-            })
-            }
-        })
-        }
+            } else {
+                return res.status(401).json({
+                    succes: false,
+                    message: 'contraseña incorrecta',
 
+                });
+            }
+        });
+    
+    }
+    
     register(req, res) {
         const user = req.body;
         User.create(user, (err,data) => {
@@ -66,5 +71,4 @@ module.exports = {
             });
         });
     }
-
 };

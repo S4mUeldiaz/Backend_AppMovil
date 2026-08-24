@@ -25,20 +25,23 @@ app.set('port', port);
 
 
 server.listen(3000, '10.1.195.210' || 'localhost', function() {
-    console.log('Aplicacion de NodeJS ' + process.pid + ' inicio en el puerto ' + port);
+    console.log('Aplicacion de NodeJS ' + process.pid + ' Ejecutando en el puerto ' + port);
+    address().address + ':' + server.address().port)
 });
 
 app.get('/', (req, res) => {
     res.send('Ruta raiz del Backend');
 });
 
-app.get('.test,' (r))
+app.get('/test', (req,res) => {
+    res.send('Estas en la ruta TEST');
+});
 
 
 app.use((err, req, res, next) => {
     console.log(err);
     res.status(err.status || 500).send(err.stack)
-})
+});
 
 app.set('port', port);
 
