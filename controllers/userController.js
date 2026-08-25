@@ -52,7 +52,7 @@ module.exports = {
             }
         });
     
-    }
+    },
     
     register(req, res) {
         const user = req.body;
