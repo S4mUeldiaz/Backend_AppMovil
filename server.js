@@ -4,20 +4,20 @@ const http = require('http');
 const server = http.createServer(app);
 const logger = require('morgan');
 const cors = require('cors');
+const passport = require('passport');
 
 //Importar Rutas
 const usersRoutes = require('./routes/userRoutes');
-const passport = require('./config/passport');
+const configurePassport = require('./config/passport');
 
 const port = process.env.PORT || 3000;
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use(passport.initialize());
-app.use(passport.session());
+configurePassport(passport);
 
-require('./config/passport')(passport);
+app.use(passport.initialize());
 
 app.disable('x-powered-by');
 
