@@ -18,7 +18,7 @@ module.exports = {
                     error: err
                 });
             }
-            if(!myUser) { // cliete sin autorizacion para realizar la peticion
+            if(!myUser) {
                 return res.status(401).json({
                     Suspense: false,
                     message: 'El email no existe en la base de datos'
@@ -26,8 +26,9 @@ module.exports = {
             }
             const isPasswordValid = await bcrypt.compare(password, myUser.password);
             if(isPasswordValid) {
-                const token = jwt.sign({ id: myUser.id, email: myUser.email}, keys, 
-                secretOrterkey,{});
+                const token = jwt.sign({ id: myUser.id, email: myUser.email },
+                    keys.secretOrterkey
+                );
 
                 const data ={
                     id: myUser.id,
@@ -38,8 +39,8 @@ module.exports = {
                     phone: myUser.phone,
                     session_token: `JWT ${token}`
                 }
-                return res.status(201),json({
-                    succes:true,
+                return res.status(200).json({
+                    success: true,
                     message: 'Usuario autenticado',
                     data: data
                 });
