@@ -8,6 +8,7 @@ const passport = require('passport');
 
 //Importar Rutas
 const usersRoutes = require('./routes/userRoutes');
+const productsRoutes = require('./routes/productRoutes');
 const configurePassport = require('./config/passport');
 
 const port = process.env.PORT || 3000;
@@ -47,3 +48,4 @@ app.set('port', port);
 
 
 usersRoutes(app);
+productsRoutes(app);
