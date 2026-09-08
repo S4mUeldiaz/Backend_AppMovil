@@ -11,7 +11,7 @@ const usersRoutes = require('./routes/userRoutes');
 const productsRoutes = require('./routes/productRoutes');
 const configurePassport = require('./config/passport');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

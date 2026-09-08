@@ -1,4 +1,4 @@
-const JwtStrategy =require('passport-jwt').Strategy
+/* const JwtStrategy =require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
 const keys = require('./keys');
 const User = require('../models/user');
@@ -19,4 +19,4 @@ module.exports =(passport) => {
             return done(null, false);            
         });
     }));
-}
+} */
