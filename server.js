@@ -4,28 +4,25 @@ const http = require('http');
 const server = http.createServer(app);
 const logger = require('morgan');
 const cors = require('cors');
-const passport = require('passport');
+require('dotenv').config();
 
 //Importar Rutas
-const usersRoutes = require('./routes/userRoutes');
-const productsRoutes = require('./routes/productRoutes');
-const configurePassport = require('./config/passport');
+const authRoutes = require('./routes/auth.routes');
+const productosRoutes = require('./routes/productos.routes');
+const stockRoutes = require('./routes/stock.routes');
+const favoritosRoutes = require('./routes/favoritos.routes');
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3002;
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-configurePassport(passport);
-
-app.use(passport.initialize());
 
 app.disable('x-powered-by');
 
 app.set('port', port);
 
-
-server.listen(3000, '192.168.80.14' || 'localhost', function() {
+server.listen(port, '0.0.0.0', function() {
     console.log('Aplicacion de NodeJS ' + process.pid + ' Ejecutando en el puerto ' + port);
     console.log(server.address().address + ':' + server.address().port);
 });
@@ -44,8 +41,7 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500).send(err.stack)
 });
 
-app.set('port', port);
-
-
-usersRoutes(app);
-productsRoutes(app);
+authRoutes(app);
+productosRoutes(app);
+stockRoutes(app);
+favoritosRoutes(app);
