@@ -11,6 +11,8 @@ const authRoutes = require('./routes/auth.routes');
 const productosRoutes = require('./routes/productos.routes');
 const stockRoutes = require('./routes/stock.routes');
 const favoritosRoutes = require('./routes/favoritos.routes');
+const pedidosRoutes = require('./routes/pedidos.routes');
+const usuariosRoutes = require('./routes/usuarios.routes');
 
 const port = process.env.PORT || 3002;
 app.use(logger('dev'));
@@ -45,3 +47,5 @@ authRoutes(app);
 productosRoutes(app);
 stockRoutes(app);
 favoritosRoutes(app);
+pedidosRoutes(app);
+usuariosRoutes(app);
