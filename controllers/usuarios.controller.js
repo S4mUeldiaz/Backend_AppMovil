@@ -1,5 +1,47 @@
 const { supabase, supabaseAuth } = require('../config/supabase');
 
+const obtenerUsuarios = async (req, res) => {
+  const { data, error } = await supabase
+    .from('usuarios')
+    .select(`
+      numero_documento,
+      nombre,
+      apellido,
+      correo,
+      telefono,
+      estado,
+      fecha_registro,
+      fecha_ultima_actividad,
+      roles ( nombre_rol )
+    `)
+    .order('fecha_registro', { ascending: false });
+
+  if (error) return res.status(400).json({ error: error.message });
+
+  return res.status(200).json(data);
+};
+
+const cambiarEstadoUsuario = async (req, res) => {
+  const { numero_documento } = req.params;
+  const { estado } = req.body;
+
+  const estadosValidos = ['activo', 'inactivo'];
+  if (!estadosValidos.includes(estado)) {
+    return res.status(400).json({ error: 'Estado inválido. Debe ser: activo o inactivo' });
+  }
+
+  const { data, error } = await supabase
+    .from('usuarios')
+    .update({ estado })
+    .eq('numero_documento', numero_documento)
+    .select('numero_documento, nombre, apellido, correo, telefono, estado')
+    .single();
+
+  if (error) return res.status(400).json({ error: error.message });
+
+  return res.status(200).json(data);
+};
+
 const actualizarUsuario = async (req, res) => {
   const { numero_documento } = req.params;
   const { nombre, apellido, telefono } = req.body;
@@ -79,4 +121,4 @@ const eliminarCuenta = async (req, res) => {
   return res.status(200).json({ mensaje: 'Cuenta eliminada' });
 };
 
-module.exports = { actualizarUsuario, cambiarPassword, eliminarCuenta };
+module.exports = { obtenerUsuarios, cambiarEstadoUsuario, actualizarUsuario, cambiarPassword, eliminarCuenta };

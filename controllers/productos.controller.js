@@ -28,6 +28,7 @@ const obtenerProductos = async (req, res) => {
       genero,
       estado,
       total_ventas,
+      fecha_creacion,
       categorias ( nombre_categoria ),
       imagenes_producto ( url_imagen, orden )
     `)
@@ -58,6 +59,7 @@ const obtenerProductoPorId = async (req, res) => {
       precio,
       genero,
       estado,
+      fecha_creacion,
       categorias ( nombre_categoria ),
       imagenes_producto ( url_imagen, orden ),
       stock ( id_stock, color, stock_actual, estado, tallas ( talla ) )

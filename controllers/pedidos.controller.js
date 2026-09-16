@@ -118,6 +118,39 @@ const actualizarEstadoPedido = async (req, res) => {
   return res.status(200).json(data);
 };
 
+const obtenerPedidos = async (req, res) => {
+  const { data, error } = await supabase
+    .from('pedidos')
+    .select(`
+      id_pedido,
+      referencia,
+      fecha_pedido,
+      costo_envio,
+      precio_total,
+      metodo_pago,
+      estado_pago,
+      estado_pedido,
+      usuarios ( numero_documento, nombre, apellido, correo ),
+      factura (
+        id_detalle,
+        cantidad,
+        precio_unitario,
+        subtotal,
+        stock (
+          id_stock,
+          color,
+          tallas ( talla ),
+          productos ( nombre, imagenes_producto ( url_imagen, orden ) )
+        )
+      )
+    `)
+    .order('fecha_pedido', { ascending: false });
+
+  if (error) return res.status(400).json({ error: error.message });
+
+  return res.status(200).json(data);
+};
+
 const obtenerPedidosPorUsuario = async (req, res) => {
   const { numero_documento } = req.params;
 
@@ -153,4 +186,4 @@ const obtenerPedidosPorUsuario = async (req, res) => {
   return res.status(200).json(data);
 };
 
-module.exports = { crearPedido, actualizarEstadoPedido, obtenerPedidosPorUsuario };
+module.exports = { crearPedido, actualizarEstadoPedido, obtenerPedidos, obtenerPedidosPorUsuario };
