@@ -13,6 +13,7 @@ const stockRoutes = require('./routes/stock.routes');
 const favoritosRoutes = require('./routes/favoritos.routes');
 const pedidosRoutes = require('./routes/pedidos.routes');
 const usuariosRoutes = require('./routes/usuarios.routes');
+const imagenesRoutes = require('./routes/imagenes.routes');
 
 const port = process.env.PORT || 3002;
 app.use(logger('dev'));
@@ -49,3 +50,4 @@ stockRoutes(app);
 favoritosRoutes(app);
 pedidosRoutes(app);
 usuariosRoutes(app);
+imagenesRoutes(app);
