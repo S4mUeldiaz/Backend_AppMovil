@@ -81,7 +81,7 @@ const cambiarPassword = async (req, res) => {
 
   if (authError) return res.status(401).json({ error: 'La contraseña actual no es correcta' });
 
-  const { error: updateError } = await supabaseAuth.auth.admin.updateUser(usuario.password_hash, {
+  const { error: updateError } = await supabaseAuth.auth.admin.updateUserById(usuario.password_hash, {
     password: password_nueva,
   });
 

@@ -25,4 +25,12 @@ const verificarRol = (...roles) => {
   };
 };
 
-module.exports = { verificarToken, verificarRol };
+const verificarPropioOAdmin = (req, res, next) => {
+  const esDueño = String(req.usuario.numero_documento) === req.params.numero_documento;
+  if (req.usuario.rol === 'admin' || esDueño) {
+    return next();
+  }
+  return res.status(403).json({ error: 'No tienes permisos para esta acción' });
+};
+
+module.exports = { verificarToken, verificarRol, verificarPropioOAdmin };
