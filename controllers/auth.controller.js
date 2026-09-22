@@ -1,8 +1,14 @@
 const { supabase, supabaseAuth } = require('../config/supabase');
 const jwt = require('jsonwebtoken');
+const { validarNumeroDocumento } = require('../utils/validarDocumento');
 
 const registro = async (req, res) => {
   const { numero_documento, id_tipo_documento, nombre, apellido, correo, telefono, password, id_rol } = req.body;
+
+  const validacionDocumento = validarNumeroDocumento(numero_documento, Number(id_tipo_documento));
+  if (!validacionDocumento.valido) {
+    return res.status(400).json({ error: validacionDocumento.mensaje });
+  }
 
   const { data: authData, error: authError } = await supabaseAuth.auth.admin.createUser({
     email: correo,
